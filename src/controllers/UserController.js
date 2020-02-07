@@ -19,4 +19,16 @@ module.exports = {
     return res.json(user);
   },
 
+  async update(req, res){
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+
+    return res.json(user);
+  },
+
+  async destroy(req,res){
+    await User.findByIdAndRemove(req.params.id);
+
+    return res.send('Deletado');
+  }
+
 };
