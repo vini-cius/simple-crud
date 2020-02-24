@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { parseISO, format } from 'date-fns'
+import ReactLoading from 'react-loading';
 
 import api from '../../services/api';
 
@@ -11,9 +13,13 @@ export default function UserList() {
 
   useEffect(() => {
     async function loadUsers() {
-      const response = await api.get('/users');
+      try {
+        const response = await api.get('/users');
 
-      setUsers(response.data);
+        setUsers(response.data);
+      } catch(err){
+        console.log(err);
+      }
     }
 
     loadUsers();
@@ -38,10 +44,10 @@ export default function UserList() {
         {
           users.map(user => (
             <tr key={user._id}>
-              <td>Editar</td>
+              <td><Link to={`/users/${user._id}`}>Editar</Link></td>
               <td>{user.firstName} {user.lastName}</td>
               <td>{user.email}</td>
-              <td>{user.createdAt}</td>
+              <td>{format(parseISO(user.createdAt), "dd'/'MM'/'yyyy' - ' HH:mm'h'")}</td>
             </tr>
           ))
         }

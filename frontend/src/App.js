@@ -9,14 +9,6 @@ import { Container, Title } from './styles/App';
 
 export default function App() {
 
-  const [users, setUsers] = useState([]);
-
-  async function handleAddUser(data) {
-    const response = await api.post('/users', data);
-    
-    setUsers([...users, response.data]);
-  }
-
   return (
     <>
     <GlobalStyle />

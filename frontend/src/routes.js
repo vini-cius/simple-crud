@@ -9,7 +9,8 @@ const Routes = () => (
     <BrowserRouter>
         <Switch>
             <Route exact path="/" component={UserList} />
-            <Route path="/users" component={UserForm /*onSubmit={handleAddUser}*/} />
+            <Route path="/users" component={UserForm} />
+            <Route path="/users/:id" component={UserForm} />
         </Switch>
     </BrowserRouter>
 );

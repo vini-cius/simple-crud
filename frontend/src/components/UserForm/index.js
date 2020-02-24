@@ -1,56 +1,89 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 import { InputBlock, InputGroup, Input, Legend, Button, Select, DivButton } from './styles';
 
-export default function UserForm({ onSubmit }) {
+import api from '../../services/api';
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [gender, setGender] = useState('');
-  const [phone, setPhone] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [address, setAddress] = useState('');
-  const [addressNumber, setAddressNumber] = useState('');
-  const [address2, setAddress2] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [country, setCountry] = useState('');
+export default function UserForm() {
 
-  async function handleSubmit(e){
+  const [users, setUsers] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    dateOfBirth: '',
+    gender: '',
+    phone: '',
+    zipCode: '',
+    address: '',
+    addressNumber: '',
+    address2: '',
+    city: '',
+    state: '',
+    country: '',
+  });
+
+
+  useEffect(() => {
+    async function loadUserById() {
+      
+      const response = await api.get(`/users/`);
+
+      console.log(response.data);
+    }
+  
+    loadUserById();
+  }, []);
+
+  async function handleAddUser(e) {
     e.preventDefault();
 
-    await onSubmit({
-      firstName,
-      lastName,
-      email,
-      dateOfBirth,
-      gender,
+    const data = {
+      firstName: users.firstName,
+      lastName: users.lastName,
+      email: users.email,
+      dateOfBirth: users.dateOfBirth,
+      gender: users.gender,
       contact: {
-        phone,
-        zipCode,
-        address,
-        addressNumber,
-        address2,
-        city,
-        state,
-        country,
+        phone: users.phone,
+        zipCode: users.zipCode,
+        address: users.address,
+        addressNumber: users.addressNumber,
+        address2: users.address2,
+        city: users.city,
+        state: users.state,
+        country: users.country,
       }
-    });
+    };
+
+    try {
+      await api.post('/users',data);
+    
+      alert('Usuário salvo com sucesso');
+      //props.history.push('/users');
+
+    } catch (error) {
+        console.log(error)
+    }
   }
+
+  function onChange(e) {
+    e.persist();
+    setUsers(users => ({...users, [e.target.name]: e.target.value}));
+  }
+
 
   return (
     <>
     <DivButton>
-      <Link to={'/'}><button type="button">Lista de Usuáris</button></Link>
+      <Link to={'/'}>
+        <button type="button">Lista de Usuários</button>
+      </Link>
     </DivButton>
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleAddUser}>
       <Legend>
         <h4>Dados Pessoais</h4>
-
         <hr />
       </Legend>
 
@@ -61,8 +94,8 @@ export default function UserForm({ onSubmit }) {
             type="text"
             id="firstName"
             name="firstName"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            value={users.firstName}
+            onChange={onChange}
             required
           />
         </InputBlock>
@@ -73,8 +106,8 @@ export default function UserForm({ onSubmit }) {
             type="text"
             id="lastName"
             name="lastName"
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            value={users.lastName}
+            onChange={onChange}
             required
           />
         </InputBlock>
@@ -86,8 +119,8 @@ export default function UserForm({ onSubmit }) {
           type="email"
           id="email"
           name="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
+          value={users.email}
+          onChange={onChange}
           required
         />
       </InputBlock>
@@ -99,15 +132,15 @@ export default function UserForm({ onSubmit }) {
             type="date"
             id="dateOfBirth"
             name="dateOfBirth"
-            value={dateOfBirth}
-            onChange={e => setDateOfBirth(e.target.value)}
+            value={users.dateOfBirth}
+            onChange={onChange}
             required
           />
         </InputBlock>
 
         <InputBlock>
           <label htmlFor="gender">Gênero</label>
-          <Select name="gender" id="gender">
+          <Select name="gender" id="gender" onChange={onChange}>
             <option value="">Selecione...</option>
             <option value="Masculino">Masculino</option>
             <option value="Feminino">Feminino</option>
@@ -117,7 +150,6 @@ export default function UserForm({ onSubmit }) {
 
       <Legend>
         <h4>Contato</h4>
-
         <hr />
       </Legend>
 
@@ -127,8 +159,8 @@ export default function UserForm({ onSubmit }) {
           type="tel"
           id="phone"
           name="phone"
-          value={phone}
-          onChange={e => setPhone(e.target.value)}
+          value={users.phone}
+          onChange={onChange}
         />
       </InputBlock>
 
@@ -138,8 +170,8 @@ export default function UserForm({ onSubmit }) {
           type="number"
           id="zipCode"
           name="zipCode"
-          value={zipCode}
-          onChange={e => setZipCode(e.target.value)}
+          value={users.zipCode}
+          onChange={onChange}
           required
         />
       </InputBlock>
@@ -151,8 +183,8 @@ export default function UserForm({ onSubmit }) {
             type="text"
             id="address"
             name="address"
-            value={address}
-            onChange={e => setAddress(e.target.value)}
+            value={users.address}
+            onChange={onChange}
             required
           />
         </InputBlock>
@@ -163,8 +195,8 @@ export default function UserForm({ onSubmit }) {
             type="text"
             id="addressNumber"
             name="addressNumber"
-            value={addressNumber}
-            onChange={e => setAddressNumber(e.target.value)}
+            value={users.addressNumber}
+            onChange={onChange}
             required
           />
         </InputBlock>
@@ -176,8 +208,8 @@ export default function UserForm({ onSubmit }) {
           type="text"
           id="address2"
           name="address2"
-          value={address2}
-          onChange={e => setAddress2(e.target.value)}
+          value={users.address2}
+          onChange={onChange}
         />
       </InputBlock>
 
@@ -188,8 +220,8 @@ export default function UserForm({ onSubmit }) {
             type="text"
             id="city"
             name="city"
-            value={city}
-            onChange={e => setCity(e.target.value)}
+            value={users.city}
+            onChange={onChange}
             required
           />
         </InputBlock>
@@ -200,8 +232,8 @@ export default function UserForm({ onSubmit }) {
             type="text"
             id="state"
             name="state"
-            value={state}
-            onChange={e => setState(e.target.value)}
+            value={users.state}
+            onChange={onChange}
             required
           />
         </InputBlock>
@@ -213,15 +245,13 @@ export default function UserForm({ onSubmit }) {
           type="text"
           id="country"
           name="country"
-          value={country}
-          onChange={e => setCountry(e.target.value)}
+          value={users.country}
+          onChange={onChange}
           required
         />
       </InputBlock>
 
-      <Button type="submit">
-        Salvar
-      </Button>
+      <Button type="submit">Salvar</Button>
     </form>
     </>
   );
