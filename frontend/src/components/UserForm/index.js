@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { InputBlock, InputGroup, Input, Legend, Button, Select, DivButton } from './styles';
 
@@ -21,13 +21,12 @@ export default function UserForm() {
     city: '',
     state: '',
     country: '',
-  });
-
+  });  
 
   useEffect(() => {
     async function loadUserById() {
       
-      const response = await api.get(`/users/`);
+      const response = await api.get(`/users`);
 
       console.log(response.data);
     }
