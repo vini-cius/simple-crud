@@ -25,6 +25,15 @@ export const Table = styled.table`
     background-color: #f5f5f5;
   }
 
+	.link {
+		color: #7d40e7;
+		text-decoration:underline;
+
+		&:hover {
+			color: #6931ca;
+			cursor: pointer;
+		}
+	}
 `;
 
 export const DivButton = styled.div`
@@ -41,10 +50,11 @@ export const DivButton = styled.div`
     margin-bottom: 5px;
     cursor: pointer;
     font-weight: bold;
+		font-size: 12px;
   }
 
   button:hover {
     background: #6931ca;
   }
-  
+
 `;

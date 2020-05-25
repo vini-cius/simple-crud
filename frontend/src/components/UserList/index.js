@@ -16,6 +16,7 @@ export default function UserList() {
 				const response = await api.get('/users');
 
 				setUsers(response.data);
+
 			} catch (err) {
 				console.log(err);
 			}
@@ -23,6 +24,17 @@ export default function UserList() {
 
 		loadUsers();
 	}, []);
+
+	async function handleDeleteUser(userId) {
+		try {
+			await api.delete(`/users/${userId}`);
+
+			setUsers(users.filter(user => user._id !== userId));
+
+		} catch (err) {
+			alert('Erro ao deletar');
+		}
+	}
 
 	return (
 		<>
@@ -34,6 +46,7 @@ export default function UserList() {
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
+						<th>&nbsp;</th>
 						<th>Nome</th>
 						<th>E-mail</th>
 						<th>Data de Criação</th>
@@ -43,8 +56,13 @@ export default function UserList() {
 					{
 						users.map(user => (
 							<tr key={user._id}>
-								<td><Link to={`/users/${user._id}`}>Editar</Link></td>
-								<td>{user.firstName} {user.lastName}</td>
+								<td>
+									<Link className="link" to={`/users/${user._id}`}>Editar</Link>
+								</td>
+								<td>
+									<span className="link" onClick={() => handleDeleteUser(user._id)}>Deletar</span>
+								</td>
+								<td>{user.fullName}</td>
 								<td>{user.email}</td>
 								<td>{format(parseISO(user.createdAt), "dd'/'MM'/'yyyy' - ' HH:mm'h'")}</td>
 							</tr>
