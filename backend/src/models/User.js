@@ -1,65 +1,65 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  firstName:{
+  firstName: {
     type: String,
     required: true,
   },
-  lastName:{
+  lastName: {
     type: String,
     required: true,
   },
-  email:{
+  email: {
     type: String,
     required: true,
   },
-  dateOfBirth:{
+  dateOfBirth: {
     type: Date,
     required: true,
   },
-  gender:{
+  gender: {
     type: String,
     required: false,
   },
-  contact:{
-    phone:{
+  contact: {
+    phone: {
       type: String,
       required: false,
     },
-    zipCode:{
+    zipCode: {
       type: String,
       required: true,
     },
-    address:{
+    address: {
       type: String,
       required: true,
     },
-    addressNumber:{
+    addressNumber: {
       type: String,
       required: true,
     },
-    state:{
+    state: {
       type: String,
       required: true,
     },
-    city:{
+    city: {
       type: String,
       required: true,
     },
-    country:{
+    country: {
       type: String,
       required: true,
     },
-    address2:{
+    address2: {
       type: String,
       required: false,
     },
   },
-  createdAt:{
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  updatedAt:{
+  updatedAt: {
     type: Date,
     default: Date.now,
   }

@@ -8,7 +8,7 @@ const app = express();
 
 const routes = require('./routes.js');
 
-mongoose.connect(process.env.MONGO_URL,{
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
