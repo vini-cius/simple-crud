@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import { InputBlock, InputGroup, Input, Legend, Button, Select, DivButton } from './styles';
 
 import api from '../../services/api';
 
-export default function UserForm() {
+export default function UserForm(props) {
 
 	const [users, setUsers] = useState({});
+	const history = useHistory();
+	let { id } = useParams();
 
 	useEffect(() => {
+
 		async function loadUserById() {
 
-			const response = await api.get(`/users`);
+			const response = await api.get(`/users/${id}`);
 
-			console.log(response.data);
+			setUsers(response.data);
 		}
 
 		loadUserById();
@@ -41,7 +44,7 @@ export default function UserForm() {
 			await api.post('/users', data);
 
 			alert('Usuário salvo com sucesso');
-			//props.history.push('/users');
+			history.push('/');
 
 		} catch (error) {
 			console.log(error)

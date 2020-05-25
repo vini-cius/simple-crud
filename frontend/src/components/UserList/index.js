@@ -13,7 +13,7 @@ export default function UserList() {
 	useEffect(() => {
 		async function loadUsers() {
 			try {
-				const response = await api.get('/users');
+				const response = await api.get(`/users`);
 
 				setUsers(response.data);
 
@@ -57,7 +57,7 @@ export default function UserList() {
 						users.map(user => (
 							<tr key={user._id}>
 								<td>
-									<Link className="link" to={`/users/${user._id}`}>Editar</Link>
+									<Link className="link" to={`/user/${user._id}`}>Editar</Link>
 								</td>
 								<td>
 									<span className="link" onClick={() => handleDeleteUser(user._id)}>Deletar</span>
