@@ -4,7 +4,7 @@ import { parseISO, format } from 'date-fns'
 
 import api from '../../services/api';
 
-import { Table, DivButton } from './styles';
+import { Table, DivButton, Container } from './styles';
 
 export default function UserList() {
 
@@ -42,34 +42,36 @@ export default function UserList() {
 				<Link to={'/users'}><button type="button">+ Criar novo usúario</button></Link>
 			</DivButton>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>&nbsp;</th>
-						<th>&nbsp;</th>
-						<th>Nome</th>
-						<th>E-mail</th>
-						<th>Data de Criação</th>
-					</tr>
-				</thead>
-				<tbody>
-					{
-						users.map(user => (
-							<tr key={user._id}>
-								<td>
-									<Link className="link" to={`/user/${user._id}`}>Editar</Link>
-								</td>
-								<td>
-									<span className="link" onClick={() => handleDeleteUser(user._id)}>Deletar</span>
-								</td>
-								<td>{user.fullName}</td>
-								<td>{user.email}</td>
-								<td>{format(parseISO(user.createdAt), "dd'/'MM'/'yyyy' - ' HH:mm'h'")}</td>
-							</tr>
-						))
-					}
-				</tbody>
-			</Table>
+			<Container>
+				<Table>
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>Nome</th>
+							<th>E-mail</th>
+							<th>Data de Criação</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							users.map(user => (
+								<tr key={user._id}>
+									<td>
+										<Link className="link" to={`/user/${user._id}`}>Editar</Link>
+									</td>
+									<td>
+										<span className="link" onClick={() => handleDeleteUser(user._id)}>Deletar</span>
+									</td>
+									<td>{user.fullName}</td>
+									<td>{user.email}</td>
+									<td>{format(parseISO(user.createdAt), "dd'/'MM'/'yyyy' - ' HH:mm'h'")}</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</Table>
+			</Container>
 		</>
 	);
 }

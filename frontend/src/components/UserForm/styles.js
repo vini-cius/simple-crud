@@ -33,6 +33,7 @@ export const Input = styled.input`
   color: #666;
   border: 0;
   border-bottom: 1px solid #eee;
+	padding: 5px 10px;
 `;
 
 export const Select = styled.select`
@@ -54,7 +55,7 @@ export const Button = styled.button`
   font-size: 16px;
   font-weight: bold;
   color: #FFF;
-  cursor: pointer;  
+  cursor: pointer;
 
   &:hover {
     background: #6931ca;
@@ -80,5 +81,5 @@ export const DivButton = styled.div`
   button:hover {
     background: #6931ca;
   }
-  
+
 `;

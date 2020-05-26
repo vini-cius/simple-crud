@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import { parseISO, formatISO, format } from 'date-fns'
 
 import { InputBlock, InputGroup, Input, Legend, Button, Select, DivButton } from './styles';
 
 import api from '../../services/api';
 
-export default function UserForm(props) {
+export default function UserForm() {
 
 	const [users, setUsers] = useState({});
 	const history = useHistory();
@@ -21,7 +22,7 @@ export default function UserForm(props) {
 		}
 
 		loadUserById();
-	}, []);
+	}, [id]);
 
 	async function handleSaveNewUser(e) {
 		e.preventDefault();
@@ -99,10 +100,10 @@ export default function UserForm(props) {
 					<InputBlock>
 						<label htmlFor="dateOfBirth">Data de Nascimento <span>*</span></label>
 						<Input
-							type="date"
+							type="text"
 							id="dateOfBirth"
 							name="dateOfBirth"
-							value={users.dateOfBirth || ''}
+							value={parseISO(users.dateOfBirth) || ''}
 							onChange={handleInputChange}
 							required
 						/>
