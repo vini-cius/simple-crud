@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { parseISO, formatISO, format } from 'date-fns'
 
 import { InputBlock, InputGroup, Input, Legend, Button, Select, DivButton } from './styles';
 
@@ -42,7 +41,11 @@ export default function UserForm() {
 		};
 
 		try {
-			await api.post('/users', data);
+			if (id === "") {
+				await api.post('/users', data);
+			} else {
+				await api.put(`/users/${id}`, data);
+			}
 
 			alert('Usuário salvo com sucesso');
 			history.push('/');
@@ -103,7 +106,7 @@ export default function UserForm() {
 							type="text"
 							id="dateOfBirth"
 							name="dateOfBirth"
-							value={parseISO(users.dateOfBirth) || ''}
+							value={users.dateOfBirth || ''}
 							onChange={handleInputChange}
 							required
 						/>
@@ -111,7 +114,12 @@ export default function UserForm() {
 
 					<InputBlock>
 						<label htmlFor="gender">Gênero</label>
-						<Select name="gender" id="gender" onChange={handleInputChange}>
+						<Select
+							name="gender"
+							id="gender"
+							value={users.gender}
+							onChange={handleInputChange}
+						>
 							<option value="">Selecione...</option>
 							<option value="Masculino">Masculino</option>
 							<option value="Feminino">Feminino</option>
