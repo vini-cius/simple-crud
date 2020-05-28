@@ -178,15 +178,27 @@ export default function UserForm() {
 					</InputBlock>
 				</InputGroup>
 
-				<InputBlock>
-					<label htmlFor="address2">Complemento</label>
-					<Input
-						id="address2"
-						name="address2"
-						value={users.address2 || ''}
-						onChange={handleInputChange}
-					/>
-				</InputBlock>
+				<InputGroup>
+					<InputBlock>
+						<label htmlFor="neighborhood">Bairro</label>
+						<Input
+							id="neighborhood"
+							name="neighborhood"
+							value={users.neighborhood || ''}
+							onChange={handleInputChange}
+						/>
+					</InputBlock>
+
+					<InputBlock>
+						<label htmlFor="address2">Complemento</label>
+						<Input
+							id="address2"
+							name="address2"
+							value={users.address2 || ''}
+							onChange={handleInputChange}
+						/>
+					</InputBlock>
+				</InputGroup>
 
 				<InputGroup>
 					<InputBlock>

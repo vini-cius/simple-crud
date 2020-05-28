@@ -43,6 +43,7 @@ export const Select = styled.select`
   color: #666;
   border: 0;
   border-bottom: 1px solid #eee;
+  background-color: #fff;
 `;
 
 export const Button = styled.button`
