@@ -1,27 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 import { InputBlock, InputGroup, Input, Legend, Button, Select, DivButton } from './styles';
-
 import api from '../../services/api';
 
 export default function UserForm() {
 
 	const [users, setUsers] = useState({});
 	const history = useHistory();
-	let { id } = useParams();
-
-	useEffect(() => {
-
-		async function loadUserById() {
-
-			const response = await api.get(`/users/${id}`);
-
-			setUsers(response.data);
-		}
-
-		loadUserById();
-	}, [id]);
 
 	async function handleSaveNewUser(e) {
 		e.preventDefault();
@@ -35,23 +21,20 @@ export default function UserForm() {
 			zipCode: users.zipCode,
 			address: users.address,
 			addressNumber: users.addressNumber,
+			neighborhood: users.neighborhood,
 			address2: users.address2,
 			city: users.city,
 			state: users.state,
 		};
 
 		try {
-			if (id === "") {
-				await api.post('/users', data);
-			} else {
-				await api.put(`/users/${id}`, data);
-			}
+			await api.post('/users', data);
 
 			alert('Usuário salvo com sucesso');
 			history.push('/');
 
 		} catch (error) {
-			console.log(error)
+			alert(error);
 		}
 	}
 
@@ -180,7 +163,7 @@ export default function UserForm() {
 
 				<InputGroup>
 					<InputBlock>
-						<label htmlFor="neighborhood">Bairro</label>
+						<label htmlFor="neighborhood">Bairro <span>*</span></label>
 						<Input
 							id="neighborhood"
 							name="neighborhood"

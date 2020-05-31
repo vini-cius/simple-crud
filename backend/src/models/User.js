@@ -33,6 +33,10 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	neighborhood: {
+		type: String,
+		required: true,
+	},
 	state: {
 		type: String,
 		required: true,
