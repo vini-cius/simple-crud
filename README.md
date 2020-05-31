@@ -15,7 +15,7 @@ Exemplo de implementação de um CRUD (Create, Read, Update and Delete).
 
  - React.js
  - Styled Components
- - Eslint + Preetier para padronização de código
+ - Eslint + Prettier para padronização de código
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
